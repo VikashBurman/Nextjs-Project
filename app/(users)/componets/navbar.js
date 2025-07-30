@@ -4,7 +4,7 @@ const Navbar = () =>{
   return(
     <>
     <nav>
-        <ul>
+        <ul className="flex justify-center space-x-2">
             <li>
                 <Link href="/">Home</Link>
             </li>

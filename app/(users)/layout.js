@@ -4,7 +4,7 @@ import Navbar from "./componets/navbar";
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>
+      <body suppressHydrationWarning={true}>
         <Navbar/>
         {children}
       </body>
