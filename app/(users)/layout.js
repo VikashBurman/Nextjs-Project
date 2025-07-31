@@ -1,13 +1,12 @@
 import "../globals.css"
 import Navbar from "./componets/navbar";
 
-export default function RootLayout({ children }) {
+export default function UsersLayout({ children }) {
   return (
-    <html>
-      <body suppressHydrationWarning={true}>
-        <Navbar/>
-        {children}
-      </body>
-    </html>
+    <>
+      <Navbar/>
+      {children}
+    </>
   );
 }
+

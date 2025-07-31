@@ -14,6 +14,12 @@ const Navbar = () =>{
             <li>
                 <Link href="/contact">Contact</Link>
             </li>
+            <li>
+                <Link href="/services">Service</Link>
+            </li>
+            <li>
+                <Link href="/clientcomponet">ClientComponent</Link>
+            </li>
         </ul>
     </nav>
     </>
