@@ -20,6 +20,9 @@ const Navbar = () =>{
             <li>
                 <Link href="/clientcomponet">ClientComponent</Link>
             </li>
+            <li>
+                <Link href="/products">Products</Link>
+            </li>
         </ul>
     </nav>
     </>
