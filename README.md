@@ -222,3 +222,47 @@ params.slug = undefined or ['a', 'b']
 ---
 
 📝 Keep updating your notes with real project examples and usage. This will make your README even stronger 💪
+
+🔍 1. searchParams (Server Component)
+✅ Used in: Server Components (like app/products/page.js)
+searchParams is automatically passed as a prop by Next.js to your server component.
+
+It works on the server and must be used with await (in route groups or advanced usage).
+
+✅ Syntax:
+js
+Copy
+Edit
+export async function ProductsPage({ searchParams }) {
+  const { category, color } = await searchParams;
+  // ...
+}
+
+⚛️ 2. useSearchParams() (Client Component)
+✅ Used in: Client Components (with 'use client' at the top)
+useSearchParams is a React hook from next/navigation
+
+Only works on the client side
+
+Returns a URLSearchParams object (synchronous)
+
+✅ Syntax:
+js
+Copy
+Edit
+'use client';
+import { useSearchParams } from 'next/navigation';
+
+export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const category = searchParams.get('category');
+  const color = searchParams.get('color');
+
+  return (
+    <div>
+      <h1>Client-side Products</h1>
+      <p>Category: {category}</p>
+      <p>Color: {color}</p>
+    </div>
+  );
+}
