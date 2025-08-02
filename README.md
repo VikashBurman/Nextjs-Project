@@ -266,3 +266,105 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+🧩 What is a Catch-All Route?
+👉 It is used when:
+You want your page to match many different URLs, even if you don’t know how many parts the URL will have.
+
+✅ Example:
+Let’s say you have this file:
+
+bash
+Copy
+Edit
+app/blog/[...slug]/page.js
+This will match all these URLs:
+
+css
+Copy
+Edit
+/blog/a
+/blog/a/b
+/blog/a/b/c/d
+So it "catches all" paths after /blog/
+
+📦 How do you get the data?
+In page.js, you get the URL parts like this:
+
+js
+Copy
+Edit
+export default function Page({ params }) {
+  const slug = params.slug;
+
+  return (
+    <div>
+      <h1>Slug: {slug.join(' / ')}</h1>
+    </div>
+  );
+}
+If you go to /blog/hello/world, it will show:
+
+makefile
+Copy
+Edit
+Slug: hello / world
+🟨 What is Optional Catch-All?
+If you use:
+
+lua
+Copy
+Edit
+app/blog/[[...slug]]/page.js
+Then it also matches /blog — even if there's nothing after it.
+
+✅ Example:
+This matches:
+
+/blog
+
+/blog/a
+
+/blog/a/b
+
+And in your code:
+
+js
+Copy
+Edit
+const slug = params.slug || []; // might be undefined
+✨ Simple Summary:
+Route File Name	What It Matches
+[...slug]	/a, /a/b, /a/b/c (at least 1 part)
+[[...slug]]	also / (can match empty URL parts)
+
+📘 Real Use Case Example:
+Folder:
+lua
+Copy
+Edit
+app/docs/[[...slug]]/page.js
+Code:
+js
+Copy
+Edit
+export default function DocsPage({ params }) {
+  const slug = params.slug || [];
+
+  return (
+    <div>
+      <h1>{slug.length ? `You opened: ${slug.join(' > ')}` : 'Welcome to Docs Home'}</h1>
+    </div>
+  );
+}
+Example URLs:
+/docs → shows: Welcome to Docs Home
+
+/docs/getting-started → shows: You opened: getting-started
+
+/docs/api/auth/login → shows: You opened: api > auth > login
+
+✅ When to Use
+You’re building docs, blogs, categories, help centers, etc.
+
+You want to handle many different nested routes with one page file.
