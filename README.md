@@ -220,24 +220,22 @@ params.slug = undefined or ['a', 'b']
 | Optional catch-all | `[[...slug]]`       | `/docs` or `/docs/a` | `undefined` or array        |
 
 ---
+ searchParams, useSearchParams, and Catch-All Routes
+A quick guide to understanding how to work with query parameters and dynamic routes in the latest Next.js App Router.
 
-📝 Keep updating your notes with real project examples and usage. This will make your README even stronger 💪
-searchParams, useSearchParams, and Catch-All Routes
-A quick guide to understanding how to work with URL query parameters and dynamic routing in the latest Next.js App Router.
-
-🔍 1. searchParams (Server Component)
+📌 searchParams (Server Component)
 ✅ Where to Use
-Server Components (e.g., app/products/page.js)
+Server Components (e.g., app/products/page.tsx)
 
-Automatically passed as a prop by Next.js.
+Automatically passed as a prop by Next.js
 
-⚠️ Important Notes
-Only works on the server side.
+⚠️ Notes
+Only available in Server Components
 
-In advanced setups or route groups (e.g., (users)), you may need to await it.
+In route groups (e.g., (users)), may need to await it
 
 💡 Example
-js
+tsx
 Copy
 Edit
 export default async function ProductsPage({ searchParams }) {
@@ -250,21 +248,19 @@ export default async function ProductsPage({ searchParams }) {
     </div>
   );
 }
-⚛️ 2. useSearchParams() (Client Component)
+⚛️ useSearchParams() (Client Component)
 ✅ Where to Use
 Client Components only
 
-Must include 'use client' at the top of the file.
+Must include 'use client' at the top
 
 🔧 How It Works
-A React Hook from next/navigation.
+React hook from next/navigation
 
-Works only on the client side.
-
-Returns a URLSearchParams object (synchronous — no await needed).
+Returns a URLSearchParams object (no await needed)
 
 💡 Example
-js
+tsx
 Copy
 Edit
 'use client';
@@ -278,61 +274,52 @@ export default function ProductsPage() {
 
   return (
     <div>
-      <h1>Client-side Products</h1>
+      <h3>Client-side Products</h3>
       <p>Category: {category}</p>
       <p>Color: {color}</p>
     </div>
   );
 }
-🧩 3. Catch-All Routes in App Router
-🔄 What is it?
-A Catch-All Route matches any number of dynamic URL segments after a base path.
+🧩 Catch-All & Optional Catch-All Routes
+🪝 What Is a Catch-All Route?
+A route that captures any number of path segments.
 
-🗂 File Structure
+📁 Example File
 bash
 Copy
 Edit
-app/blog/[...slug]/page.js
-🔗 Matches Routes Like:
+app/blog/[...slug]/page.tsx
+🔗 Matches
 css
 Copy
 Edit
 /blog/a
 /blog/a/b
-/blog/a/b/c/d
-💡 Example Code
-js
+/blog/a/b/c
+💡 Code Example
+tsx
 Copy
 Edit
 export default function Page({ params }) {
   const slug = params.slug;
 
-  return (
-    <div>
-      <h1>Slug: {slug.join(' / ')}</h1>
-    </div>
-  );
+  return <h3>Slug: {slug.join(' / ')}</h3>;
 }
-🧪 Example Output for /blog/hello/world
-makefile
+🟨 Optional Catch-All Route
+📁 Example File
+lua
 Copy
 Edit
-Slug: hello / world
-🟨 4. Optional Catch-All Route
-🗂 File Structure
-bash
-Copy
-Edit
-app/blog/[[...slug]]/page.js
-🔗 Matches Routes Like:
+app/blog/[[...slug]]/page.tsx
+🔗 Matches
 bash
 Copy
 Edit
 /blog
 /blog/a
 /blog/a/b
-💡 Example Code
-js
+💡 Code Example
+tsx
 Copy
 Edit
 export default function Page({ params }) {
@@ -340,27 +327,27 @@ export default function Page({ params }) {
 
   return (
     <div>
-      <h1>
+      <h3>
         {slug.length
           ? `You opened: ${slug.join(' > ')}`
           : 'Welcome to Blog Home'}
-      </h1>
+      </h3>
     </div>
   );
 }
-🧠 Summary Table
-Route File Name	Matches
-[...slug]	/a, /a/b, /a/b/c (requires 1+ segment)
-[[...slug]]	Also matches / (zero or more segments)
+📑 Summary Table
+Route Type	File Name	Matches	Example Output
+Catch-All	[...slug]	/a, /a/b/c	params.slug = ['a', 'b', 'c']
+Optional Catch-All	[[...slug]]	/, /a, /a/b	params.slug = undefined or array
 
-📘 Real-World Example
-🗂 Folder Structure
-bash
+📘 Real-World Example: Docs Page
+📁 Folder
+lua
 Copy
 Edit
-app/docs/[[...slug]]/page.js
+app/docs/[[...slug]]/page.tsx
 💡 Code Example
-js
+tsx
 Copy
 Edit
 export default function DocsPage({ params }) {
@@ -368,27 +355,28 @@ export default function DocsPage({ params }) {
 
   return (
     <div>
-      <h1>
+      <h3>
         {slug.length
           ? `You opened: ${slug.join(' > ')}`
           : 'Welcome to Docs Home'}
-      </h1>
+      </h3>
     </div>
   );
 }
-🧪 Example Routes:
+🔍 Example URLs & Outputs
 URL	Output
 /docs	Welcome to Docs Home
 /docs/getting-started	You opened: getting-started
 /docs/api/auth/login	You opened: api > auth > login
 
 ✅ When to Use Catch-All Routes
-Use them when you need to:
+Use when building:
 
-Create documentation platforms
+📝 Documentation systems
 
-Build blog pages with nested categories
+📰 Blogs with nested categories
 
-Handle deeply nested dynamic routes
+📁 Deeply structured directories
 
-Serve content dynamically based on URL paths
+🧩 Flexible and scalable content pages
+
